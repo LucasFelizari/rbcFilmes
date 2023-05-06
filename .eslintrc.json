@@ -1,0 +1,86 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "overrides": [],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "rules": {
+    "@next/next/no-page-custom-font": "off",
+    "@next/next/no-img-element": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "function-declaration"
+      }
+    ],
+
+    //Formatação
+    "curly": ["error", "all"],
+    "nonblock-statement-body-position": ["error", "below"],
+    "padding-line-between-statements": "off",
+    "@typescript-eslint/padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+      {
+        "blankLine": "any",
+        "prev": ["const", "let", "var"],
+        "next": ["const", "let", "var"]
+      }
+    ],
+    "dot-location": ["error", "property"],
+
+    //eslint:recommended
+    "for-direction": "error",
+    "array-callback-return": [
+      "error",
+      { "allowImplicit": true, "checkForEach": true }
+    ],
+    "no-const-assign": "error",
+
+    //Sugestões
+    "arrow-body-style": ["error", "as-needed"],
+    "eqeqeq": ["error", "smart"],
+    "quote-props": ["error", "consistent"],
+    "operator-assignment": ["error", "always"],
+    "no-else-return": ["error", { "allowElseIf": false }],
+    "no-unneeded-ternary": ["error", { "defaultAssignment": false }],
+    "prefer-template": "error",
+    "quotes": [
+      "error",
+      "single",
+      { "avoidEscape": true, "allowTemplateLiterals": true }
+    ]
+  }
+}
+
+/*
+rules: {
+    // "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }], //Conflito com prettier
+    "space-before-blocks": [
+      "error",
+      { "functions": "always", "keywords": "always", "classes": "always" }
+    ],
+    "arrow-spacing": ["error", { "before": true, "after": true }],
+    "keyword-spacing": ["error", { "before": true, "after": true }],
+    "switch-colon-spacing": ["error", { "after": true, "before": false }],
+    "block-spacing": "error",
+
+    //Sugestões
+  }
+*/
