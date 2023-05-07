@@ -1,9 +1,22 @@
 import { IFilmeDto } from "../types/IFilmeDto";
 
-export default function buscarFilmePorNome(filmes: IFilmeDto[], nome: string): IFilmeDto | undefined {
+export default async function buscarFilmePorNome(nome: string): Promise<IFilmeDto | undefined> {
+    const csv = require('csv-parse');
+
+    let filmes: IFilmeDto[] | undefined;
     let filmeMaisSimilar: IFilmeDto | undefined;
     let menorDistancia = Number.MAX_SAFE_INTEGER;
-  
+
+    const response = await fetch('/filmes.csv');
+    const text = await response.text();
+
+    filmes = await new Promise((resolve, reject) => {
+        csv.parse(text, { columns: true }, (err, rows) => {
+          if (err) reject(err);
+          resolve(rows);
+        });
+      });
+
     for (const filme of filmes) {
       const distancia = levenshteinDistance(nome.toLowerCase(), filme.title.toLowerCase());
       if (distancia < menorDistancia) {
