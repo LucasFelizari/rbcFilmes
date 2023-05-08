@@ -31,7 +31,7 @@ export default async function buscarFilmesSemelhantes(filme: IFilmeDto): Promise
         const similaridadeOrcamento = calcularSimilaridadeEntreNumeros(filme.budget, f.budget);
 
         // Se a similaridade entre os três aspectos for maior ou igual a 0.5, adiciona o filme à lista de filmes semelhantes
-        if (similaridadeTitulo >= 0.5 && similaridadeData >= 0.5 && similaridadeOrcamento >= 0.5) {
+        if (similaridadeTitulo >= 0.3 && similaridadeData >= 0.3 && similaridadeOrcamento >= 0.3) {
             filmesSemelhantes.push(f);
         }
     });

@@ -24,8 +24,16 @@ export default function Home() {
   }
 
   return (
-    <Flex w={'full'} bg={'bgLight'} h="100vh" pos={'relative'} alignItems={'center'} justifyContent={'center'}>
-      <Box shadow={'lg'}borderRadius={'1.5rem'} w="60vw" bg="bg" h={'30rem'}  >
+    <Flex 
+      w={'full'} 
+      bg={'bgLight'} 
+      h="100vh" 
+      pos={'relative'} 
+      alignItems={'center'} 
+      justifyContent={'center'} 
+     
+    >
+      <Box shadow={'lg'}borderRadius={'1.5rem'} minW="80vw" bg="bg" minH={'90vh'}  overflowY={'auto'}  >
         <VStack w={'100%'} margin='1rem auto' spacing={'1.5rem'}>
           <HStack w="90%">
             <Input placeholder='Nome do filme' color={'white'} onChange={handleChange} />
@@ -38,4 +46,3 @@ export default function Home() {
     </Flex>
   )
 }
-
