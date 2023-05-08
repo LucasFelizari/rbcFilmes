@@ -1,13 +1,13 @@
-import { Box, Button, Center, HStack, Spinner, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, HStack, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import buscarFilmePorNome from "../common/services/buscarFilmePorNome";
 import { IFilmeDto } from "../common/types/IFilmeDto";
 import { Input } from '@chakra-ui/react'
 import CardFilmeBuscado from "../common/components/CardFilmeBuscado";
 import CardFilmesSemelhantes from "../common/components/CardFilmesSemelhantes";
+import buscarFilmesSemelhantes from "../common/services/buscarFilmesSemelhantes";
 
 export default function Home() {
-  const csv = require('csv-parse');
   const [nomeFilme, setNomeFilme] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [filmeBuscado, setFilmeBuscado] = useState<IFilmeDto | undefined>(null);
@@ -23,6 +23,13 @@ export default function Home() {
     setFilmeBuscado(await buscarFilmePorNome(nomeFilme))
     setIsLoading(false);
   }
+
+  useEffect(() => { 
+    if(!filmeBuscado){
+      return;
+    }
+    buscarFilmesSemelhantes(filmeBuscado)
+  }, [filmeBuscado])
 
   return (
     <VStack w={'full'} bg={'bgLight'} h="100vh" pos={'relative'}>
