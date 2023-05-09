@@ -21,7 +21,7 @@ export default function CardFilmesSemelhantes({ filmeBuscado }: { filmeBuscado: 
 
   if (filmesSemelhantes && filmesSemelhantes.length > 0) {
     return (
-      <Box color={'white'} w={'90%'} borderRadius={'1rem'} borderWidth={'1px'}>
+      <Box color={'white'} w={'100%'} borderRadius={'1rem'} borderWidth={'2px'}>
         <Heading size={'md'} p={'1rem'}>Filmes semelhantes:</Heading>
         <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(300px, 1fr))' p="1rem">
           {filmesSemelhantes.map((filme, index) => (
@@ -30,10 +30,12 @@ export default function CardFilmesSemelhantes({ filmeBuscado }: { filmeBuscado: 
                 <Heading size='md'>{filme.title}</Heading>
               </CardHeader>
               <CardBody>
-                <Center>
-                  <ImagemFilme nomeFilme={filme.title} />
-                </Center>
-                <Text>Data de lançamento: {filme.release_date}</Text>
+                <VStack w={'100%'} spacing={'1rem'}>
+                  <Center>
+                    <ImagemFilme maxH={'15rem'} nomeFilme={filme.title} />
+                  </Center>
+                  <Text>Data de lançamento: {filme.release_date}</Text>
+                </VStack>
               </CardBody>
             </Card>
           ))}

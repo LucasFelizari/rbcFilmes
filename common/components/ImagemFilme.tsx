@@ -3,7 +3,7 @@ import { url } from "inspector";
 import { useEffect, useState } from "react";
 import buscarImagemFilme from "../services/buscarImagemFilme";
 
-export default function ImagemFilme({ nomeFilme }) {
+export default function ImagemFilme({ maxH, nomeFilme }) {
 
     const [urlImagem, setUrlImagem] = useState<string>('');
 
@@ -23,9 +23,9 @@ export default function ImagemFilme({ nomeFilme }) {
         return (
             <Box >
                 <Image
-                   
-                    objectFit='cover'
+                    borderRadius={'1rem'}
                     src={urlImagem}
+                    maxH={maxH}
                     alt='Img filme'
                 />
             </Box>

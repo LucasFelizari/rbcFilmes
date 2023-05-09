@@ -1,5 +1,5 @@
 import { Box, Button, Flex, HStack, VStack } from "@chakra-ui/react";
-import {useState } from "react";
+import { useState } from "react";
 import buscarFilmePorNome from "../common/services/buscarFilmePorNome";
 import { IFilmeDto } from "../common/types/IFilmeDto";
 import { Input } from '@chakra-ui/react'
@@ -24,18 +24,28 @@ export default function Home() {
   }
 
   return (
-    <Flex 
-      w={'full'} 
-      bg={'bgLight'} 
-      h="100vh" 
-      pos={'relative'} 
-      alignItems={'center'} 
-      justifyContent={'center'} 
-     
+    <Flex
+      w={'full'}
+      bg={'bgLight'}
+      pos={'relative'}
+      alignItems={'center'}
+      justifyContent={'center'}
     >
-      <Box shadow={'lg'}borderRadius={'1.5rem'} minW="80vw" bg="bg" minH={'90vh'}  >
-        <VStack w={'100%'} margin='1rem auto' spacing={'1.5rem'}  overflowY={'auto'}>
-          <HStack w="90%">
+      <Box
+        shadow={'lg'}
+        borderRadius={'1.5rem'}
+        my={'2rem'}
+        minW="80vw"
+        p={'2rem'}
+        bg="bg"
+        minH={'90vh'}
+        justifyContent={'center'}
+      >
+        <VStack
+          w={'100%'}
+          spacing={'1.5rem'}
+        >
+          <HStack w="100%">
             <Input placeholder='Nome do filme' color={'white'} onChange={handleChange} />
             <Button colorScheme="linkedin" isLoading={isLoading} onClick={BuscarFilme}>Buscar</Button>
           </HStack>

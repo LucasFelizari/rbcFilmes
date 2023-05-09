@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Spinner, Text, VStack } from "@chakra-ui/react"
+import { Box, Center, Heading, HStack, Spinner, Text, VStack } from "@chakra-ui/react"
 import { IFilmeDto } from "../types/IFilmeDto"
 import Image from "next/image"
 import buscarImagemFilme from "../services/buscarImagemFilme"
@@ -14,16 +14,16 @@ export default function CardFilmeBuscado({ filme, isLoading }: { filme: IFilmeDt
   }
 
   return (
-    <Box color={'white'} w={'100%'} borderRadius={'1rem'} borderWidth={'1px'} px={"2rem"} mx={'2rem'}>
-      <HStack w={"100%"} justifyContent={"space-between"} p={"1rem"}>
-        <VStack w={'full'} alignItems={'start'} p={'1rem'}>
+    <Box color={'white'} w={'100%'} borderRadius={'1rem'} borderWidth={'2px'} px={"2rem"} >
+      <HStack w={"100%"} h={"100%"} justifyContent={"space-between"} p={"1rem"}>
+        <VStack w={'full'} h={'100%'} alignItems={'start'} spacing={'2rem'} p={'1rem'}>
           <Text >Filme buscado:</Text>
-          <Text fontWeight={'semibold'}>{filme.title}</Text>
+          <Heading >{filme.title}</Heading>
           <Text>Lançamento: {filme.release_date}</Text>
         </VStack>
-        <Box >
-          <ImagemFilme nomeFilme={filme.title} />
-        </Box>
+
+        <ImagemFilme maxH={'15rem'} nomeFilme={filme.title} />
+
       </HStack>
     </ Box >
   )
