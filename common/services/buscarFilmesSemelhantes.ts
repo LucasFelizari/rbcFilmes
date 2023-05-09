@@ -25,37 +25,37 @@ export default async function buscarFilmesSemelhantes(filme: IFilmeDto): Promise
         // Verificar a similaridade entre os títulos originais dos filmes
         const similaridadeTituloOriginal = stringSimilarity.compareTwoStrings(filme.original_title, f.original_title);
         batatinha += similaridadeTituloOriginal * 3;
-        console.log(similaridadeTituloOriginal)
+        //console.log(similaridadeTituloOriginal)
 
         //TITLE - 2.0
         // Verificar a similaridade entre os títulos dos filmes
         const similaridadeTitulo = stringSimilarity.compareTwoStrings(filme.title, f.title);
         batatinha += similaridadeTitulo * 2;
-        console.log(similaridadeTitulo)
+        //console.log(similaridadeTitulo)
 
         //GENERO - 2.0
         //Verificar a similaridade entre os generos dos filmes
         const similaridadeGenero = stringSimilarity.compareTwoStrings(filme.genres, f.genres);
         batatinha += similaridadeGenero * 2;
-        console.log(similaridadeGenero)
+      //  console.log(similaridadeGenero)
 
         //VOTE_AVERAGE - 1.0
         // Verificar a similaridade entre as notas dos filmes
         const similaridadeNota = calcularSimilaridadeEntreNumeros(filme.vote_average, f.vote_average);
         batatinha += similaridadeNota;
-        console.log(similaridadeNota)
+      //  console.log(similaridadeNota)
 
         //PRODUCT_COMPANY - 1.0
         // Verificar a similaridade entre as empresas produtoras
         const similaridadeProdutoras = stringSimilarity.compareTwoStrings(filme.production_companies, f.production_companies);
         batatinha += similaridadeProdutoras;
-        console.log(similaridadeProdutoras)
+      //  console.log(similaridadeProdutoras)
 
         //POPULARIDADE - 1.0
         // Verificar a similaridade entre a popularidade dos filmes
         const similaridadePopularidade = calcularSimilaridadeEntreNumeros(filme.popularity, f.popularity);
         batatinha += similaridadePopularidade;
-        console.log(similaridadePopularidade)
+       // console.log(similaridadePopularidade)
 
         f.totalSimilarity = batatinha;
     });
