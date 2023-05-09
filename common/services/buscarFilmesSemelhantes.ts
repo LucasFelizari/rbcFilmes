@@ -17,34 +17,52 @@ export default async function buscarFilmesSemelhantes(filme: IFilmeDto): Promise
     });
 
     filmes = filmes.filter(x => x.id !== filme.id);
+    
 
     filmes.forEach((f) => {
+        var batatinha = 0;
+        //ORIGINAL TITLE - 3.0
+        // Verificar a similaridade entre os títulos originais dos filmes
+        const similaridadeTituloOriginal = stringSimilarity.compareTwoStrings(filme.original_title, f.original_title);
+        batatinha += similaridadeTituloOriginal * 3;
+        console.log(similaridadeTituloOriginal)
+
+        //TITLE - 2.0
         // Verificar a similaridade entre os títulos dos filmes
         const similaridadeTitulo = stringSimilarity.compareTwoStrings(filme.title, f.title);
+        batatinha += similaridadeTitulo * 2;
+        console.log(similaridadeTitulo)
 
-        // Verificar a similaridade entre as datas de lançamento dos filmes
-        const dataFilme = new Date(filme.release_date);
-        const dataOutroFilme = new Date(f.release_date);
-        const similaridadeData = calcularSimilaridadeEntreDatas(dataFilme, dataOutroFilme);
-       
-        // Verificar a similaridade entre os orçamentos dos filmes
-        const similaridadeOrcamento = calcularSimilaridadeEntreNumeros(filme.budget, f.budget);
+        //GENERO - 2.0
+        //Verificar a similaridade entre os generos dos filmes
+        const similaridadeGenero = stringSimilarity.compareTwoStrings(filme.genres, f.genres);
+        batatinha += similaridadeGenero * 2;
+        console.log(similaridadeGenero)
 
-        // Se a similaridade entre os três aspectos for maior ou igual a 0.5, adiciona o filme à lista de filmes semelhantes
-        if (similaridadeTitulo >= 0.3 && similaridadeData >= 0.3 && similaridadeOrcamento >= 0.3) {
-            filmesSemelhantes.push(f);
-        }
+        //VOTE_AVERAGE - 1.0
+        // Verificar a similaridade entre as notas dos filmes
+        const similaridadeNota = calcularSimilaridadeEntreNumeros(filme.vote_average, f.vote_average);
+        batatinha += similaridadeNota;
+        console.log(similaridadeNota)
+
+        //PRODUCT_COMPANY - 1.0
+        // Verificar a similaridade entre as empresas produtoras
+        const similaridadeProdutoras = stringSimilarity.compareTwoStrings(filme.production_companies, f.production_companies);
+        batatinha += similaridadeProdutoras;
+        console.log(similaridadeProdutoras)
+
+        //POPULARIDADE - 1.0
+        // Verificar a similaridade entre a popularidade dos filmes
+        const similaridadePopularidade = calcularSimilaridadeEntreNumeros(filme.popularity, f.popularity);
+        batatinha += similaridadePopularidade;
+        console.log(similaridadePopularidade)
+
+        f.totalSimilarity = batatinha;
     });
 
     // Retornar os 5 filmes com maior similaridade
-   return filmesSemelhantes
-        .sort((a, b) => {
-            // Ordenar por ordem decrescente de similaridade
-            const similaridadeA = calcularSimilaridadeTotal(filme, a);
-            const similaridadeB = calcularSimilaridadeTotal(filme, b);
-            return similaridadeB - similaridadeA;
-        })
-        .slice(0, 5);
+    return filmes.sort(f => f.totalSimilarity).slice(0, 5);
+   
 }
 
 function calcularSimilaridadeTotal(filme: IFilmeDto, outroFilme: IFilmeDto): number {
