@@ -33,8 +33,8 @@ export default function Home() {
       justifyContent={'center'} 
      
     >
-      <Box shadow={'lg'}borderRadius={'1.5rem'} minW="80vw" bg="bg" minH={'90vh'}  overflowY={'auto'}  >
-        <VStack w={'100%'} margin='1rem auto' spacing={'1.5rem'}>
+      <Box shadow={'lg'}borderRadius={'1.5rem'} minW="80vw" bg="bg" minH={'90vh'}  >
+        <VStack w={'100%'} margin='1rem auto' spacing={'1.5rem'}  overflowY={'auto'}>
           <HStack w="90%">
             <Input placeholder='Nome do filme' color={'white'} onChange={handleChange} />
             <Button colorScheme="linkedin" isLoading={isLoading} onClick={BuscarFilme}>Buscar</Button>
