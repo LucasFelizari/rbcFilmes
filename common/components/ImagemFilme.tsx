@@ -24,6 +24,7 @@ export default function ImagemFilme({ maxH, nomeFilme }) {
             <Box >
                 <Image
                     borderRadius={'1rem'}
+                    boxShadow={'lg'}
                     src={urlImagem}
                     maxH={maxH}
                     alt='Img filme'
