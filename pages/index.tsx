@@ -1,4 +1,4 @@
-import { Box, Button, Flex, HStack, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, HStack, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import buscarFilmePorNome from "../common/services/buscarFilmePorNome";
 import { IFilmeDto } from "../common/types/IFilmeDto";
@@ -36,9 +36,11 @@ export default function Home() {
         borderRadius={'1.5rem'}
         my={'2rem'}
         minW="80vw"
+        maxW={'80vw'}
         p={'2rem'}
         bg="bg"
         minH={'90vh'}
+        color={'white'}
         justifyContent={'center'}
       >
         <VStack
@@ -46,9 +48,13 @@ export default function Home() {
           spacing={'1.5rem'}
         >
           <HStack w="100%">
-            <Input placeholder='Nome do filme' color={'white'} onChange={handleChange} />
+            <Input placeholder='Nome do filme' onChange={handleChange} />
             <Button colorScheme="linkedin" isLoading={isLoading} onClick={BuscarFilme}>Buscar</Button>
           </HStack>
+          {filmeBuscado && <Box w={'100%'} alignItems={'start'} pt={'1rem'}>
+            <Heading >Filme buscado:</Heading>
+            </Box>
+            }
           <CardFilmeBuscado filme={filmeBuscado} isLoading={isLoading} />
           <CardFilmesSemelhantes filmeBuscado={filmeBuscado} />
         </VStack>
