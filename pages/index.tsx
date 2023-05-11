@@ -49,12 +49,12 @@ export default function Home() {
         >
           <HStack w="100%">
             <Input placeholder='Nome do filme' onChange={handleChange} />
-            <Button fontFamily={'Poppins'}colorScheme="linkedin" isLoading={isLoading} onClick={BuscarFilme}>Buscar</Button>
+            <Button fontFamily={'Poppins'} colorScheme="linkedin" isLoading={isLoading} onClick={BuscarFilme}>Buscar</Button>
           </HStack>
           {filmeBuscado && <Box w={'100%'} alignItems={'start'} pt={'1rem'}>
-            <Heading fontFamily={'Poppins'} >Filme buscado:</Heading>
-            </Box>
-            }
+            <Heading fontFamily={'Poppins'} pl={'1rem'}>Filme buscado:</Heading>
+          </Box>
+          }
           <CardFilmeBuscado filme={filmeBuscado} isLoading={isLoading} />
           <CardFilmesSemelhantes filmeBuscado={filmeBuscado} />
         </VStack>

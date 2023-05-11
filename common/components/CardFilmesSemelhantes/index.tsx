@@ -39,4 +39,3 @@ export default function CardFilmesSemelhantes({ filmeBuscado }: { filmeBuscado: 
   return null;
 }
 
- 

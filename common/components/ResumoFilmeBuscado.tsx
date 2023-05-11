@@ -22,7 +22,7 @@ export default function ResumoFilmeBuscado({ nomeFilme }) {
 
     if (resumo) {
         return (
-            <Text  fontFamily={'Poppins'}>
+            <Text fontFamily={'Poppins'}>
                 {resumo}
             </Text>
         );

@@ -25,8 +25,8 @@ export default function CardFilmeBuscado({ filme, isLoading }: { filme: IFilmeDt
     >
       <HStack w={"100%"} justifyContent={"space-between"} p={"1rem"}>
         <VStack w={'full'} alignItems={'start'} spacing={'2rem'} p={'1rem'}>
-          <Heading  fontFamily={'Poppins'} >{filme.title}</Heading>
-          <Text  fontFamily={'Poppins'}>Lançamento: {filme.release_date}</Text>
+          <Heading fontFamily={'Poppins'} >{filme.title}</Heading>
+          <Text fontFamily={'Poppins'}>Lançamento: {filme.release_date}</Text>
           <Box maxW={'30rem'}>
             <ResumoFilmeBuscado nomeFilme={filme.title} />
           </Box>
