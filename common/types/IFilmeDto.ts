@@ -1,34 +1,36 @@
+interface IGenre {
+    id: number;
+    name: string;
+}
+
 export interface IFilmeDto {
     budget: number;
-    genres: Array<{
-        id: number;
-        name: string;
-    }>;
+    genres: IGenre[];
     homepage: string;
     id: number;
-    keywords: Array<{
+    keywords: [{
         id: number;
         name: string;
-    }>;
+    }];
     original_language: string;
     original_title: string;
     overview: string;
     popularity: number;
-    production_companies: Array<{
+    production_companies: [{
         id: number;
         name: string;
-    }>;
-    production_countries: Array<{
+    }];
+    production_countries: [{
         iso_3166_1: string;
         name: string;
-    }>;
+    }];
     release_date: string;
     revenue: number;
     runtime: number;
-    spoken_languages: Array<{
+    spoken_languages: [{
         iso_639_1: string;
         name: string;
-    }>;
+    }];
     status: string;
     tagline: string;
     title: string;
