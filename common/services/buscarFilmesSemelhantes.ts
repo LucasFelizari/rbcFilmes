@@ -24,19 +24,19 @@ export default async function buscarFilmesSemelhantes(filme: IFilmeDto): Promise
 
         // similaridade de título original
         const originalTitleSimilarity = calcularSimilaridade(f.original_title, filme.original_title);
-        totalSimilarity += (originalTitleSimilarity * 0.2);
+        totalSimilarity += (originalTitleSimilarity * 0.15);
 
         // similaridade de título
         const titleSimilarity = calcularSimilaridade(f.title, filme.title);
-        totalSimilarity += (titleSimilarity * 0.3);
+        totalSimilarity += (titleSimilarity * 0.15);
 
         // similaridade de gêneros
         const genreSimilarity = calcularSimilaridadeEntreGeneros(filme?.genres, f.genres)
-        totalSimilarity += (genreSimilarity * 0.2);
+        totalSimilarity += (genreSimilarity * 0.3);
 
         // similaridade de empresas de produção
         const companySimilarity = calcularSimilaridadeEntreEmpresasDeProducao(filme.production_companies, f.production_companies)
-        totalSimilarity += (companySimilarity * 0.1);
+        totalSimilarity += (companySimilarity * 0.2);
 
         // similaridade de popularidade
         const popularitySimilarity = calcularSimilaridadeEntrePopularidade(f.popularity, filme.popularity);
@@ -47,7 +47,7 @@ export default async function buscarFilmesSemelhantes(filme: IFilmeDto): Promise
         totalSimilarity += (voteSimilarity * 0.1);
 
         f.totalSimilarity = totalSimilarity < 0 ? totalSimilarity * (-1) : totalSimilarity;
-        console.log('similaridade total:' + f.totalSimilarity);
+        //console.log('similaridade total:' + f.totalSimilarity);
     });
 
     // ordenar filmes pela similaridade total em ordem decrescente
