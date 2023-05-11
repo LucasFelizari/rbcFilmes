@@ -22,40 +22,44 @@ export default async function buscarFilmesSemelhantes(filme: IFilmeDto): Promise
     filmes.forEach(f => {
         let totalSimilarity = 0;
 
+        // similaridade de título original
+        const originalTitleSimilarity = calcularSimilaridade(f.original_title, filme.original_title);
+        totalSimilarity += (originalTitleSimilarity * 0.2);
+
         // similaridade de título
         const titleSimilarity = calcularSimilaridade(f.title, filme.title);
-        const originalTitleSimilarity = calcularSimilaridade(f.original_title, filme.original_title);
-        const maxTitleSimilarity = Math.max(titleSimilarity, originalTitleSimilarity);
-        totalSimilarity += maxTitleSimilarity;
+        totalSimilarity += (titleSimilarity * 0.3);
 
         // similaridade de gêneros
-       // const genres1 = filme?.genres?.map(g => g.name);
-       // const genres2 = f.genres.map(g => g.name);
         const genreSimilarity = calcularSimilaridadeEntreGeneros(filme?.genres, f.genres)
-        totalSimilarity += genreSimilarity;
+        totalSimilarity += (genreSimilarity * 0.2);
 
         // similaridade de empresas de produção
-        //const productionCompanies1 = filme.production_companies.map(c => c.name);
-       // const productionCompanies2 = f.production_companies.map(c => c.name);
         const companySimilarity = calcularSimilaridadeEntreEmpresasDeProducao(filme.production_companies, f.production_companies)
-        totalSimilarity += companySimilarity;
+        totalSimilarity += (companySimilarity * 0.1);
 
         // similaridade de popularidade
-        const popularitySimilarity = calcularSimilaridadeEntreNumeros(f.popularity, filme.popularity);
-        totalSimilarity += popularitySimilarity;
+        const popularitySimilarity = calcularSimilaridadeEntrePopularidade(f.popularity, filme.popularity);
+        totalSimilarity += (popularitySimilarity * 0.1);
 
         // similaridade de avaliação
-        const voteSimilarity = calcularSimilaridadeEntreNumeros(f.vote_average, filme.vote_average);
-        totalSimilarity += voteSimilarity;
+        const voteSimilarity = calcularSimilaridadeEntreNotas(f.vote_average, filme.vote_average);
+        totalSimilarity += (voteSimilarity * 0.1);
 
-        f.totalSimilarity = totalSimilarity;
+        f.totalSimilarity = totalSimilarity < 0 ? totalSimilarity * (-1) : totalSimilarity;
+        console.log('similaridade total:' + f.totalSimilarity);
     });
 
     // ordenar filmes pela similaridade total em ordem decrescente
     filmes = filmes.sort((a, b) => (b.totalSimilarity || 0) - (a.totalSimilarity || 0));
 
+    filmes.slice(0, 5).forEach(f => {
+            console.log(f.title + ' similaridade ' + f.totalSimilarity);
+        });
+
     // retornar os 5 filmes mais semelhantes
     return filmes.slice(0, 5);
+
 }
 
 function calcularSimilaridade(str1: string, str2: string): number {
@@ -65,53 +69,50 @@ function calcularSimilaridade(str1: string, str2: string): number {
 function calcularSimilaridadeEntreEmpresasDeProducao(empresas1, empresas2) {
     const empresas1Array = Array.isArray(empresas1) ? empresas1 : [empresas1];
     const empresas2Array = Array.isArray(empresas2) ? empresas2 : [empresas2];
-  
+
     const allEmpresas = [...new Set([...empresas1Array, ...empresas2Array])];
-  
+
     let similaridade = 0;
     allEmpresas.forEach(empresa => {
-      const empresa1Exists = empresas1Array.find(e => e.name === empresa.name);
-      const empresa2Exists = empresas2Array.find(e => e.name === empresa.name);
-      if (empresa1Exists && empresa2Exists) {
-        similaridade += 1 / allEmpresas.length;
-      } else if (empresa1Exists || empresa2Exists) {
-        similaridade += 0.5 / allEmpresas.length;
-      }
+        const empresa1Exists = empresas1Array.find(e => e.name === empresa.name);
+        const empresa2Exists = empresas2Array.find(e => e.name === empresa.name);
+        if (empresa1Exists && empresa2Exists) {
+            similaridade += 1 / allEmpresas.length;
+        } else if (empresa1Exists || empresa2Exists) {
+            similaridade += 0.5 / allEmpresas.length;
+        }
     });
     return similaridade;
-  }
+}
 
 
 function calcularSimilaridadeEntreGeneros(genres1, genres2) {
     const genres1Array = Array.isArray(genres1) ? genres1 : [genres1];
     const genres2Array = Array.isArray(genres2) ? genres2 : [genres2];
-  
+
     const allGenres = [...new Set([...genres1Array, ...genres2Array])];
-  
+
     let similaridade = 0;
     allGenres.forEach(genre => {
-      const genre1Exists = genres1Array.includes(genre);
-      const genre2Exists = genres2Array.includes(genre);
-      if (genre1Exists && genre2Exists) {
-        similaridade += 1 / allGenres.length;
-      } else if (genre1Exists || genre2Exists) {
-        similaridade += 0.5 / allGenres.length;
-      }
+        const genre1Exists = genres1Array.includes(genre);
+        const genre2Exists = genres2Array.includes(genre);
+        if (genre1Exists && genre2Exists) {
+            similaridade += 1 / allGenres.length;
+        } else if (genre1Exists || genre2Exists) {
+            similaridade += 0.5 / allGenres.length;
+        }
     });
     return similaridade;
-  }
-
-function calcularSimilaridadeEntreDatas(data1: string, data2: string): number {
-    const milissegundosPorDia = 1000 * 60 * 60 * 24;
-    const diferencaEmMilissegundos = Math.abs(Date.parse(data1) - Date.parse(data2));
-    const maxDiferencaEmMilissegundos = milissegundosPorDia * 365; // um ano em milissegundos
-    const similaridade = 1 - diferencaEmMilissegundos / maxDiferencaEmMilissegundos;
-    return similaridade;
 }
-//Similaridade entre Numeros
 
-function calcularSimilaridadeEntreNumeros(num1, num2) {
+//Similaridade entre Notas
+function calcularSimilaridadeEntreNotas(num1, num2) {
     return (1 - (num2 - num1) / (10 - 0));
+}
+
+//Similaridade entre Popularidade
+function calcularSimilaridadeEntrePopularidade(num1, num2) {
+    return (1 - (num2 - num1) / (875581305 - 0));
 }
 
 
