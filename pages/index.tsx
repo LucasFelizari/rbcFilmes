@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <Flex
       w={'full'}
-      bg={'bgLight'}
+      bg={'black'}
       pos={'relative'}
       alignItems={'center'}
       justifyContent={'center'}
